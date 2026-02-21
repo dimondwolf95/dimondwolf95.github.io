@@ -4,82 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex - #001 Plowvr</title>
-    <link rel="icon" type="image/png" href="static/images/pokeballl.png?v=2">
+    <link rel="icon" type="image/png" href="static/images/favicon.png?v=2">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        
-        .entry-container { 
-            background-color: white; width: 100%; max-width: 900px; border-radius: 20px; 
-            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
-        /* Top Section: Visuals & Basic Info */
-        .top-section { display: flex; flex-direction: row; background: #fff; }
-        .entry-visuals { background-color: #78C850; color: white; padding: 40px; text-align: center; flex: 1; }
-        .entry-visuals img { width: 100%; max-width: 200px; }
+        /* Layout Wrapper */
+        .page-wrapper {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* The Red Area Back Button */
+        .back-button {
+            text-decoration: none;
+            color: white;
+            background-color: #333;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .back-button:hover {
+            background-color: #ffcb05;
+            color: #333;
+            transform: translateX(-5px);
+        }
+
+        /* Main Card Container */
+        .entry-container {
+            background-color: white;
+            width: 100%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .top-section { display: flex; flex-direction: row; }
+
+        .entry-visuals {
+            background-color: #78C850;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .entry-visuals img {
+            width: 100%;
+            max-width: 200px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
         .entry-data { padding: 40px; flex: 1.5; }
 
-        /* Evolution Section */
-        .section-title { background: #f8f8f8; padding: 15px 40px; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; color: #444; }
-        
-        .evo-container { 
-            display: flex; justify-content: space-around; align-items: center; padding: 30px; text-align: center; 
+        .type-tag {
+            background: #78C850;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Section Styling */
+        .section-title {
+            background: #f8f8f8;
+            padding: 15px 40px;
+            font-weight: bold;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        /* Base Stats Styling */
+        .stats-container { padding: 20px 40px; }
+        .stat-row { display: flex; align-items: center; margin-bottom: 10px; }
+        .stat-label { width: 80px; font-weight: bold; font-size: 0.85rem; color: #666; }
+        .stat-num { width: 35px; text-align: right; margin-right: 15px; font-weight: bold; }
+        .stat-bar-bg { flex-grow: 1; background: #eee; height: 10px; border-radius: 5px; }
+        .stat-bar-fill { height: 100%; border-radius: 5px; }
+
+        .hp { background: #FF0000; }
+        .atk { background: #F08030; }
+        .def { background: #F8D030; }
+        .spa { background: #6890F0; }
+        .spd { background: #78C850; }
+        .spe { background: #F85888; }
+
+        /* Evolution Styling */
+        .evo-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
         }
         .evo-arrow { font-size: 2rem; color: #ccc; }
         .evo-step img { width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; padding: 10px; }
 
-        /* Moves Table */
-        .moves-section { padding: 20px 40px 40px; }
-        .moves-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .moves-table th { border-bottom: 2px solid #78C850; padding: 10px; color: #666; font-size: 0.9rem; }
-        .moves-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        /* Moves Table Styling */
+        .moves-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .moves-table th { border-bottom: 2px solid #ddd; padding: 12px; text-align: left; color: #888; font-size: 0.9rem; }
+        .moves-table td { padding: 12px; border-bottom: 1px solid #eee; }
 
-        .type-tag { background: #78C850; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
-        .page-wrapper {
-    display: flex;
-    align-items: flex-start; /* Keeps button at the top */
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
-}
-
-.back-button {
-    text-decoration: none;
-    color: white;
-    background-color: #333;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-    flex-shrink: 0; /* Prevents the button from shrinking */
-}
-
-.back-button:hover {
-    background-color: #ffcb05;
-    color: #333;
-    transform: translateX(-5px); /* Subtle nudge to the left */
-}
-
-/* Mobile Fix: Stack them so the button is on top of the card */
-@media (max-width: 900px) {
-    .page-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-    .back-button {
-        width: 100%; /* Full width button on mobile for easy tapping */
-        height: 45px;
-    }
-}
-
-        @media (max-width: 600px) {
+        @media (max-width: 900px) {
+            .page-wrapper { flex-direction: column; align-items: center; }
+            .back-button { width: 100%; height: 50px; }
             .top-section { flex-direction: column; }
             .evo-container { flex-direction: column; gap: 20px; }
             .evo-arrow { transform: rotate(90deg); }
@@ -88,102 +146,118 @@
 </head>
 <body>
 
-<div class="entry-container">
-    <div class="top-section">
-        <div class="entry-visuals">
-            <h1>#001</h1>
-            <img src="static/images/PLOWVR.png" alt="Plowvr">
-            <h2>Plowvr</h2>
-            <span class="type-tag">Grass</span>
-        </div>
-        <div class="entry-data">
-            <a href="index.html" class="back-button">← Back</a>
-            <h3>Description</h3>
-            <p>Plowvr uses its leaf-like tail to till the soil in deep forests. It is a staple starter for new trainers in the region.</p>
-            
-            <strong>Ability:</strong> Overgrow<br>
-            <strong>Hidden Ability:</strong> Leaf Guard
-        </div>
-    </div>
+    <div class="page-wrapper">
+        <a href="index.html" class="back-button">←</a>
 
-    <div class="section-title">Evolution Line</div>
-    <div class="evo-container">
-        <div class="evo-step">
-            <img src="static/images/PLOWVR.png" alt="Plowvr">
-            <p><strong>Plowvr</strong><br><small>Basic</small></p>
-        </div>
-        <div class="evo-arrow">➔</div>
-        <div class="evo-step">
-            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
-            <p><strong>???</strong><br><small>Lvl 16</small></p>
-        </div>
-        <div class="evo-arrow">➔</div>
-        <div class="evo-step">
-            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
-            <p><strong>???</strong><br><small>Lvl 34</small></p>
-        </div>
-    </div>
+        <div class="entry-container">
+            <div class="top-section">
+                <div class="entry-visuals">
+                    <h1>#001</h1>
+                    <img src="static/images/PLOWVR.png" alt="Plowvr">
+                    <h2>Plowvr</h2>
+                    <span class="type-tag" style="background: white; color: #78C850;">Grass</span>
+                </div>
 
-<div class="section-title" style="background: #78C850; color: white; padding: 10px 40px; margin-top: 30px; font-weight: bold;">
-    Moves Learnt by Level Up
-</div>
-<div class="moves-section" style="padding: 0 40px;">
-    <table class="moves-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-        <thead>
-            <tr style="text-align: left; border-bottom: 2px solid #78C850;">
-                <th style="padding: 12px;">Lvl</th>
-                <th style="padding: 12px;">Move</th>
-                <th style="padding: 12px;">Type</th>
-                <th style="padding: 12px;">Pwr</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Start</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Tackle</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">40</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Lvl 7</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Vine Whip</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#78C850;">Grass</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">45</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                <div class="entry-data">
+                    <span class="type-tag">Grass</span>
+                    <h3>Description</h3>
+                    <p>Plowvr uses its leaf-like tail to till the soil in deep forests. It is a staple starter for new trainers in the region.</p>
+                    <p><strong>Ability:</strong> Overgrow</p>
+                    <p><strong>Hidden Ability:</strong> Leaf Guard</p>
+                </div>
+            </div>
 
-<div class="section-title" style="background: #333; color: white; padding: 10px 40px; font-weight: bold;">
-    Moves Learnt by TM / HM
-</div>
-<div class="moves-section" style="padding: 0 40px;">
-    <table class="moves-table" style="width: 100%; border-collapse: collapse; margin-bottom: 40px;">
-        <thead>
-            <tr style="text-align: left; border-bottom: 2px solid #333;">
-                <th style="padding: 12px;">TM #</th>
-                <th style="padding: 12px;">Move</th>
-                <th style="padding: 12px;">Type</th>
-                <th style="padding: 12px;">Pwr</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">TM01</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Work Up</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">--</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">TM10</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Hidden Power</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">60</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
+            <div class="section-title">Base Stats</div>
+            <div class="stats-container">
+                <div class="stat-row">
+                    <div class="stat-label">HP</div>
+                    <div class="stat-num">45</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill hp" style="width: 17%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">Attack</div>
+                    <div class="stat-num">49</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill atk" style="width: 19%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">Defense</div>
+                    <div class="stat-num">49</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill def" style="width: 19%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">Sp. Atk</div>
+                    <div class="stat-num">65</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill spa" style="width: 25%;"></div></div>
+                </div>
+            </div>
 
-</body>
+            <div class="section-title">Evolution Line</div>
+            <div class="evo-container">
+                <div class="evo-step">
+                    <img src="static/images/PLOWVR.png" alt="Plowvr">
+                    <p><strong>Plowvr</strong><br><small>Basic</small></p>
+                </div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step">
+                    <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
+                    <p><strong>???</strong><br><small>Level 16</small></p>
+                </div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step">
+                    <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
+                    <p><strong>???</strong><br><small>Level 34</small></p>
+                </div>
+            </div>
+
+            <div class="section-title" style="background:#78C850; color:white;">Moves Learnt by Level Up</div>
+            <div style="padding: 0 40px;">
+                <table class="moves-table">
+                    <thead>
+                        <tr>
+                            <th>Lvl</th>
+                            <th>Move</th>
+                            <th>Type</th>
+                            <th>Pwr</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Start</td>
+                            <td>Tackle</td>
+                            <td>Normal</td>
+                            <td>40</td>
+                        </tr>
+                        <tr>
+                            <td>Lvl 7</td>
+                            <td>Vine Whip</td>
+                            <td>Grass</td>
+                            <td>45</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-title" style="background:#333; color:white;">Moves Learnt by TM / HM</div>
+            <div style="padding: 0 40px;">
+                <table class="moves-table">
+                    <thead>
+                        <tr>
+                            <th>TM #</th>
+                            <th>Move</th>
+                            <th>Type</th>
+                            <th>Pwr</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TM01</td>
+                            <td>Work Up</td>
+                            <td>Normal</td>
+                            <td>--</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div> </div> </body>
 </html>
