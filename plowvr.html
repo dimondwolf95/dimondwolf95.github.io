@@ -1,3 +1,11 @@
+That’s a classic move for a Pokémon Essentials project! Building the Pokedex site while you develop the game in RPG Maker XP is a great way to keep your data organized.
+
+To handle Moves and Evolutions, we need to update the Detail Page (like plowvr.html). I’ve added a "Moveset" table and an "Evolution Chain" section. I also included a "Method" column for the moves, so you can specify if it’s via Level Up, TM, or Tutor.
+
+Updated Detail Page Template
+You can use this structure for any Pokémon entry. I've used a CSS Grid for the Evolution section to make it look like a flow.
+
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,147 +13,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex - #001 Plowvr</title>
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        
+        .entry-container { 
+            background-color: white; width: 100%; max-width: 900px; border-radius: 20px; 
+            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
         }
 
-        /* Desktop Layout (Default) */
-        .entry-container {
-            background-color: white;
-            width: 100%;
-            max-width: 800px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: row; /* Side-by-side */
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        /* Top Section: Visuals & Basic Info */
+        .top-section { display: flex; flex-direction: row; background: #fff; }
+        .entry-visuals { background-color: #78C850; color: white; padding: 40px; text-align: center; flex: 1; }
+        .entry-visuals img { width: 100%; max-width: 200px; }
+        .entry-data { padding: 40px; flex: 1.5; }
+
+        /* Evolution Section */
+        .section-title { background: #f8f8f8; padding: 15px 40px; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; color: #444; }
+        
+        .evo-container { 
+            display: flex; justify-content: space-around; align-items: center; padding: 30px; text-align: center; 
         }
+        .evo-arrow { font-size: 2rem; color: #ccc; }
+        .evo-step img { width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; padding: 10px; }
 
-        .entry-visuals {
-            background-color: #78C850;
-            color: white;
-            padding: 40px;
-            text-align: center;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Moves Table */
+        .moves-section { padding: 20px 40px 40px; }
+        .moves-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .moves-table th { border-bottom: 2px solid #78C850; padding: 10px; color: #666; font-size: 0.9rem; }
+        .moves-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
 
-        .entry-visuals img {
-            width: 100%;
-            max-width: 250px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-        }
+        .type-tag { background: #78C850; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
+        .back-button { text-decoration: none; color: #666; font-weight: bold; display: block; margin-bottom: 15px; }
 
-        .entry-data {
-            padding: 40px;
-            flex: 1.5;
-        }
-
-        .back-button {
-            text-decoration: none;
-            color: #666;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-            transition: color 0.2s;
-        }
-
-        .back-button:hover { color: #000; }
-
-        .type-tag {
-            background: #78C850;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .stats-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .stats-table td {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .stat-name {
-            font-weight: bold;
-            color: #888;
-            width: 100px;
-        }
-
-        /* --- MOBILE LAYOUT FIX --- */
         @media (max-width: 600px) {
-            .entry-container {
-                flex-direction: column; /* Stacks image on top of info */
-            }
-
-            .entry-visuals {
-                padding: 30px;
-                flex: none;
-            }
-
-            .entry-data {
-                padding: 30px;
-                flex: none;
-            }
-
-            .entry-visuals img {
-                max-width: 180px;
-            }
+            .top-section { flex-direction: column; }
+            .evo-container { flex-direction: column; gap: 20px; }
+            .evo-arrow { transform: rotate(90deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="entry-container">
+<div class="entry-container">
+    <div class="top-section">
         <div class="entry-visuals">
             <h1>#001</h1>
             <img src="static/images/PLOWVR.png" alt="Plowvr">
             <h2>Plowvr</h2>
+            <span class="type-tag">Grass</span>
         </div>
-
         <div class="entry-data">
-            <a href="index.html" class="back-button">← Back to Pokedex</a>
-            <div>
-                <span class="type-tag">Grass</span>
-            </div>
-            
+            <a href="index.html" class="back-button">← Back</a>
             <h3>Description</h3>
-            <p>Plowvr uses its leaf-like tail to till the soil in deep forests, helping new plants grow. It is known for its high energy and playful nature.</p>
-
-            <h3>Pokémon Data</h3>
-            <table class="stats-table">
-                <tr>
-                    <td class="stat-name">Height</td>
-                    <td>0.6 m</td>
-                </tr>
-                <tr>
-                    <td class="stat-name">Weight</td>
-                    <td>12.5 kg</td>
-                </tr>
-                <tr>
-                    <td class="stat-name">Ability</td>
-                    <td>Overgrow</td>
-                </tr>
-            </table>
+            <p>Plowvr uses its leaf-like tail to till the soil in deep forests. It is a staple starter for new trainers in the region.</p>
+            
+            <strong>Ability:</strong> Overgrow<br>
+            <strong>Hidden Ability:</strong> Leaf Guard
         </div>
     </div>
+
+    <div class="section-title">Evolution Line</div>
+    <div class="evo-container">
+        <div class="evo-step">
+            <img src="static/images/PLOWVR.png" alt="Plowvr">
+            <p><strong>Plowvr</strong><br><small>Basic</small></p>
+        </div>
+        <div class="evo-arrow">➔</div>
+        <div class="evo-step">
+            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
+            <p><strong>???</strong><br><small>Lvl 16</small></p>
+        </div>
+        <div class="evo-arrow">➔</div>
+        <div class="evo-step">
+            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
+            <p><strong>???</strong><br><small>Lvl 34</small></p>
+        </div>
+    </div>
+
+    <div class="section-title">Move Pool</div>
+    <div class="moves-section">
+        <table class="moves-table">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Move</th>
+                    <th>Type</th>
+                    <th>Cat.</th>
+                    <th>Pwr.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Start</td>
+                    <td>Tackle</td>
+                    <td>Normal</td>
+                    <td>Phys</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>Start</td>
+                    <td>Growl</td>
+                    <td>Normal</td>
+                    <td>Stat</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td>Lvl 7</td>
+                    <td>Vine Whip</td>
+                    <td>Grass</td>
+                    <td>Phys</td>
+                    <td>45</td>
+                </tr>
+                <tr>
+                    <td>TM01</td>
+                    <td>Work Up</td>
+                    <td>Normal</td>
+                    <td>Stat</td>
+                    <td>--</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
