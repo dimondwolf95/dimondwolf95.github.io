@@ -36,23 +36,28 @@
 
         .type-tag { background: #78C850; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
         .back-button {
-            text-decoration: none;
-            color: white;
-            background-color: #333; /* Dark grey to stand out from the Grass/Fire colors */
-            padding: 10px 20px;
-            border-radius: 50px; /* Rounded pill shape */
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: white;
+    color: #333;
+    width: 50px;
+    height: 50px;
+    line-height: 50px; /* Centers the arrow */
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000; /* Keeps it above everything else */
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-        .back-button:hover {
-            background-color: #000;
-            transform: scale(1.05); /* Slightly grows when you hover */
-            color: #ffcb05; /* Pokémon Yellow text on hover */
-        }
+.back-button:hover {
+    background: #ffcb05;
+    transform: rotate(-10deg);
+}
 
         @media (max-width: 600px) {
             .top-section { flex-direction: column; }
