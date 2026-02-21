@@ -11,35 +11,35 @@
            POKEMON DATA LIBRARY (The "Config" Object)
            ========================================== */
         :root {
-            /* Identity */
+            /* Identity & Style */
             --dex-num: "#001";
             --name: "Plowvr";
             --type: "Grass";
             --accent-color: #78C850;
             --pkmn-img: url('static/images/PLOWVR.png');
 
-            /* Description & Abilities */
+            /* Text Data */
             --desc: "Plowvr uses its leaf-like tail to till the soil in deep forests. It is a staple starter for new trainers in the region.";
             --ability: "Overgrow";
             --h-ability: "Leaf Guard";
 
-            /* Stats */
-            --hp-val: "45";  --hp-bar: 17.6%;
-            --atk-val: "49"; --atk-bar: 19.2%;
-            --def-val: "49"; --def-bar: 19.2%;
-            --spa-val: "65"; --spa-bar: 25.4%;
-            --spd-val: "65"; --spd-bar: 25.4%;
-            --spe-val: "45"; --spe-bar: 17.6%;
+            /* Stats (Values) */
+            --hp-val: "45";  --hp-bar: 17%;
+            --atk-val: "49"; --atk-bar: 19%;
+            --def-val: "49"; --def-bar: 19%;
+            --spa-val: "65"; --spa-bar: 25%;
+            --spd-val: "65"; --spd-bar: 25%;
+            --spe-val: "45"; --spe-bar: 17%;
 
             /* Navigation Links */
             --prev-url: "index.html"; 
             --next-url: "vansizzle.html";
-            --prev-name: "#000 Index";
-            --next-name: "#002 Vansizzle";
+            --prev-label: "#000 Index";
+            --next-label: "#002 Vansizzle";
         }
 
         /* ==========================================
-           LOGIC & STYLING
+           CORE STYLING
            ========================================== */
         body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
         .page-wrapper { display: flex; align-items: flex-start; justify-content: center; gap: 20px; width: 100%; max-width: 1100px; }
@@ -54,22 +54,26 @@
         }
         .back-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
 
-        /* Main Layout */
+        /* Layout Structure */
         .entry-container { background-color: white; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .top-section { display: flex; }
-        .entry-visuals { background-color: var(--accent-color); color: white; padding: 40px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .main-img { width: 100%; max-width: 220px; content: var(--pkmn-img); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+        .top-section { display: flex; min-height: 400px; }
         
-        .entry-data { padding: 40px; flex: 1.5; }
-        .data-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        .mini-img { width: 100px; height: 100px; content: var(--pkmn-img); background: #f9f9f9; border-radius: 12px; padding: 8px; border: 1px solid #eee; }
+        /* Centered Left Panel */
+        .entry-visuals { 
+            background-color: var(--accent-color); color: white; padding: 40px; 
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+        }
+        .main-img { width: 100%; max-width: 250px; content: var(--pkmn-img); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+        
+        .entry-data { padding: 40px; flex: 1.5; display: flex; flex-direction: column; justify-content: center; }
+        .type-tag { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; width: fit-content;}
 
-        /* Themed Elements */
-        .section-title { background: #f8f8f8; padding: 15px 40px; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
-        .type-tag { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; display: inline-block; }
+        /* Sections */
+        .section-title { background: #f8f8f8; padding: 15px 40px; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; color: #444; }
+        .stats-container, .moves-container { padding: 25px 40px; }
 
         /* Stat Bars */
-        .stats-container { padding: 25px 40px; }
         .stat-row { display: flex; align-items: center; margin-bottom: 10px; }
         .stat-label { width: 100px; font-weight: bold; font-size: 0.8rem; color: #666; }
         .stat-num { width: 40px; text-align: right; margin-right: 15px; font-weight: bold; }
@@ -83,28 +87,27 @@
         .spd-bar { width: var(--spd-bar); background: #78C850; }
         .spe-bar { width: var(--spe-bar); background: #F85888; }
 
-        /* Injectors */
-        .name-txt::after { content: var(--name); }
-        .num-txt::after { content: var(--dex-num); }
-        .type-txt::after { content: var(--type); }
-        .hp-num::after { content: var(--hp-val); }
-        .atk-num::after { content: var(--atk-val); }
-        .def-num::after { content: var(--def-val); }
-        .spa-num::after { content: var(--spa-val); }
-        .spd-num::after { content: var(--spd-val); }
-        .spe-num::after { content: var(--spe-val); }
+        /* Evolution Line */
+        .evo-container { display: flex; justify-content: space-around; align-items: center; padding: 30px; text-align: center; }
+        .evo-step img { width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; padding: 10px; }
+        .evo-arrow { font-size: 2rem; color: #ccc; }
 
-        /* Cycler Nav */
+        /* Moves Table */
+        .moves-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .moves-table th { border-bottom: 2px solid #ddd; padding: 12px; text-align: left; color: #888; font-size: 0.85rem; }
+        .moves-table td { padding: 12px; border-bottom: 1px solid #eee; }
+
+        /* Footer Nav */
         .dex-nav { display: flex; justify-content: space-between; background: #333; padding: 20px 40px; }
-        .nav-btn { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.2s; }
+        .nav-btn { color: white; text-decoration: none; font-weight: bold; transition: 0.2s; }
         .nav-btn:hover { color: var(--accent-color); }
 
+        /* Mobile */
         @media (max-width: 900px) {
             .page-wrapper { flex-direction: column; align-items: center; }
             .top-section { flex-direction: column; }
             .back-button-container { position: relative; top: 0; width: 100%; margin-bottom: 10px; }
             .back-button { width: 100%; height: 50px; flex-direction: row; gap: 10px; }
-            .mini-img { display: none; }
         }
     </style>
 </head>
@@ -118,70 +121,97 @@
         <div class="entry-container">
             <div class="top-section">
                 <div class="entry-visuals">
-                    <h1 class="num-txt"></h1>
+                    <h1 id="out-num"></h1>
                     <img class="main-img" alt="Pokemon">
-                    <h2 class="name-txt"></h2>
+                    <h2 id="out-name"></h2>
                 </div>
 
                 <div class="entry-data">
-                    <div class="data-header">
-                        <div>
-                            <span class="type-tag type-txt"></span>
-                            <h3>Description</h3>
-                            <p id="inject-desc"></p>
-                        </div>
-                        <img class="mini-img" alt="Pokemon Thumb">
-                    </div>
-                    <p><strong>Ability:</strong> <span id="inject-ability"></span></p>
-                    <p><strong>Hidden Ability:</strong> <span id="inject-h-ability"></span></p>
+                    <span class="type-tag" id="out-type"></span>
+                    <h3>Description</h3>
+                    <p id="out-desc"></p>
+                    <p><strong>Ability:</strong> <span id="out-ability"></span></p>
+                    <p><strong>Hidden Ability:</strong> <span id="out-h-ability"></span></p>
                 </div>
             </div>
 
             <div class="section-title">Base Stats</div>
             <div class="stats-container">
-                <div class="stat-row"><div class="stat-label">HP</div><div class="stat-num hp-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill hp-bar"></div></div></div>
-                <div class="stat-row"><div class="stat-label">ATTACK</div><div class="stat-num atk-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill atk-bar"></div></div></div>
-                <div class="stat-row"><div class="stat-label">DEFENSE</div><div class="stat-num def-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill def-bar"></div></div></div>
-                <div class="stat-row"><div class="stat-label">SP. ATK</div><div class="stat-num spa-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill spa-bar"></div></div></div>
-                <div class="stat-row"><div class="stat-label">SP. DEF</div><div class="stat-num spd-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill spd-bar"></div></div></div>
-                <div class="stat-row"><div class="stat-label">SPEED</div><div class="stat-num spe-num"></div><div class="stat-bar-bg"><div class="stat-bar-fill spe-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">HP</div><div class="stat-num" id="out-hp"></div><div class="stat-bar-bg"><div class="stat-bar-fill hp-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">ATTACK</div><div class="stat-num" id="out-atk"></div><div class="stat-bar-bg"><div class="stat-bar-fill atk-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">DEFENSE</div><div class="stat-num" id="out-def"></div><div class="stat-bar-bg"><div class="stat-bar-fill def-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SP. ATK</div><div class="stat-num" id="out-spa"></div><div class="stat-bar-bg"><div class="stat-bar-fill spa-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SP. DEF</div><div class="stat-num" id="out-spd"></div><div class="stat-bar-bg"><div class="stat-bar-fill spd-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SPEED</div><div class="stat-num" id="out-spe"></div><div class="stat-bar-bg"><div class="stat-bar-fill spe-bar"></div></div></div>
+            </div>
+
+            <div class="section-title">Evolution Line</div>
+            <div class="evo-container">
+                <div class="evo-step"><img src="static/images/PLOWVR.png" alt="Evo 1"><p><strong>Plowvr</strong><br><small>Basic</small></p></div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step"><div style="width:80px;height:80px;background:#eee;border-radius:50%;display:inline-block;line-height:80px;color:#aaa;">?</div><p><strong>???</strong><br><small>Lvl 16</small></p></div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step"><div style="width:80px;height:80px;background:#eee;border-radius:50%;display:inline-block;line-height:80px;color:#aaa;">?</div><p><strong>???</strong><br><small>Lvl 34</small></p></div>
+            </div>
+
+            <div class="section-title" id="move-head-lvl" style="background:var(--accent-color); color:white;">Moves Learnt by Level Up</div>
+            <div class="moves-container">
+                <table class="moves-table">
+                    <thead><tr><th>Lvl</th><th>Move</th><th>Type</th><th>Pwr</th></tr></thead>
+                    <tbody>
+                        <tr><td>Start</td><td>Tackle</td><td>Normal</td><td>40</td></tr>
+                        <tr><td>Lvl 7</td><td>Vine Whip</td><td>Grass</td><td>45</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-title" style="background:#333; color:white;">Moves Learnt by TM / HM</div>
+            <div class="moves-container">
+                <table class="moves-table">
+                    <thead><tr><th>TM #</th><th>Move</th><th>Type</th><th>Pwr</th></tr></thead>
+                    <tbody>
+                        <tr><td>TM01</td><td>Work Up</td><td>Normal</td><td>--</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="dex-nav">
-                <a href="#" id="prev-btn" class="nav-btn"></a>
-                <a href="#" id="next-btn" class="nav-btn"></a>
+                <a href="#" id="btn-prev" class="nav-btn"></a>
+                <a href="#" id="btn-next" class="nav-btn"></a>
             </div>
         </div>
     </div>
 
     <script>
-        /**
-         * THE CONTROLLER
-         * This script acts like a bridge between your CSS Variable Library
-         * and the HTML page. It "reads" the variables and places the text.
-         */
+        // Library Controller
         document.addEventListener("DOMContentLoaded", () => {
             const root = getComputedStyle(document.documentElement);
-            
-            // Helper function to get clean string from CSS variables
             const getVar = (name) => root.getPropertyValue(name).trim().replace(/^"(.*)"$/, '$1');
 
-            // Inject Text Data
-            document.getElementById('inject-desc').innerText = getVar('--desc');
-            document.getElementById('inject-ability').innerText = getVar('--ability');
-            document.getElementById('inject-h-ability').innerText = getVar('--h-ability');
+            // Identity
+            document.getElementById('out-num').innerText = getVar('--dex-num');
+            document.getElementById('out-name').innerText = getVar('--name');
+            document.getElementById('out-type').innerText = getVar('--type');
+            document.getElementById('out-desc').innerText = getVar('--desc');
+            document.getElementById('out-ability').innerText = getVar('--ability');
+            document.getElementById('out-h-ability').innerText = getVar('--h-ability');
 
-            // Setup Navigation Buttons
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            
-            prevBtn.href = getVar('--prev-url');
-            prevBtn.innerText = getVar('--prev-name');
-            
-            nextBtn.href = getVar('--next-url');
-            nextBtn.innerText = getVar('--next-name');
+            // Stats
+            document.getElementById('out-hp').innerText = getVar('--hp-val');
+            document.getElementById('out-atk').innerText = getVar('--atk-val');
+            document.getElementById('out-def').innerText = getVar('--def-val');
+            document.getElementById('out-spa').innerText = getVar('--spa-val');
+            document.getElementById('out-spd').innerText = getVar('--spd-val');
+            document.getElementById('out-spe').innerText = getVar('--spe-val');
+
+            // Cycler
+            const pBtn = document.getElementById('btn-prev');
+            const nBtn = document.getElementById('btn-next');
+            pBtn.href = getVar('--prev-url');
+            pBtn.innerText = getVar('--prev-label');
+            nBtn.href = getVar('--next-url');
+            nBtn.innerText = getVar('--next-label');
         });
     </script>
-
 </body>
 </html>
