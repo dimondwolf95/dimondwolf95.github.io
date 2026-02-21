@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Custom Pokédex</title>
     <style>
-        /* General Page Styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f0f0;
@@ -13,12 +12,27 @@
             padding: 20px;
         }
 
-        h1 {
-            color: #333;
+        /* Filter Section Styling */
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
             margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
-        /* The Flexbox Container */
+        .filter-section input, .filter-section select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        /* Container & Cards */
         .pokedex-container {
             display: flex;
             flex-wrap: wrap;
@@ -28,13 +42,8 @@
             margin: 0 auto;
         }
 
-        /* Link Styling (Removes default blue/underline) */
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-        }
+        .card-link { text-decoration: none; color: inherit; }
 
-        /* Individual Card Styling */
         .pokemon-card {
             background-color: white;
             border: 2px solid #ddd;
@@ -42,40 +51,33 @@
             padding: 20px;
             width: 220px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease; /* Smooth animation for hover */
+            transition: all 0.3s ease;
         }
 
-        /* Hover Effect */
         .pokemon-card:hover {
-            transform: translateY(-10px); /* Lifts the card up */
+            transform: translateY(-10px);
             box-shadow: 0 12px 20px rgba(0,0,0,0.2);
-            border-color: #ffcb05; /* Pokémon Yellow border */
-            cursor: pointer;
+            border-color: #ffcb05;
         }
 
-        .pokemon-card h2 {
-            margin-top: 0;
-            font-size: 1.5rem;
-            color: #444;
-        }
-
-        .pokemon-card img {
-            background-color: #f9f9f9;
-            border-radius: 50%;
-            margin: 10px 0;
-        }
-
+        /* Type & Stage Labels */
         .type-label {
             display: inline-block;
             padding: 5px 15px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: white;
             margin-top: 10px;
         }
+        
+        .stage-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 5px;
+        }
 
-        /* Custom Colors for Types */
         .grass { background-color: #78C850; }
         .fire { background-color: #F08030; }
 
@@ -85,27 +87,76 @@
 
     <h1>My Custom Pokédex</h1>
 
-    <div class="pokedex-container">
+    <div class="filter-section">
+        <input type="text" id="searchInput" placeholder="Search by name..." onkeyup="filterPokemon()">
+        
+        <select id="typeFilter" onchange="filterPokemon()">
+            <option value="all">All Types</option>
+            <option value="grass">Grass</option>
+            <option value="fire">Fire</option>
+        </select>
 
-        <a href="plowvr.html" class="card-link">
+        <select id="evoFilter" onchange="filterPokemon()">
+            <option value="all">All Stages</option>
+            <option value="basic">Basic</option>
+            <option value="stage 1">Stage 1</option>
+            <option value="stage 2">Stage 2</option>
+        </select>
+    </div>
+
+    <div class="pokedex-container" id="pokedex">
+
+        <a href="plowvr.html" class="card-link pokemon-item" data-name="plowvr" data-type="grass" data-stage="basic">
             <div class="pokemon-card">
                 <h2>#1 Plowvr</h2>
                 <img src="static/images/PLOWVR.png" alt="Plowvr" width="150">
                 <p>A playful forest Pokémon.</p>
                 <span class="type-label grass">Grass</span>
+                <span class="stage-label">Basic</span>
             </div>
         </a>
 
-        <a href="vansizzle.html" class="card-link">
+        <a href="vansizzle.html" class="card-link pokemon-item" data-name="vansizzle" data-type="fire" data-stage="basic">
             <div class="pokemon-card">
                 <h2>#2 Vansizzle</h2>
                 <img src="static/images/VANSIZZLE.png" alt="Vansizzle" width="150">
                 <p>A playful fire Pokémon.</p>
                 <span class="type-label fire">Fire</span>
+                <span class="stage-label">Basic</span>
             </div>
         </a>
             
     </div>
+
+    <script>
+        function filterPokemon() {
+            // Get values from search and dropdowns
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            let typeQuery = document.getElementById('typeFilter').value;
+            let evoQuery = document.getElementById('evoFilter').value;
+            
+            // Get all Pokémon cards
+            let cards = document.getElementsByClassName('pokemon-item');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                let type = cards[i].getAttribute('data-type');
+                let stage = cards[i].getAttribute('data-stage');
+
+                // Check if the card matches all 3 filters
+                let nameMatch = name.includes(searchQuery);
+                let typeMatch = (typeQuery === "all" || type === typeQuery);
+                let evoMatch = (evoQuery === "all" || stage === evoQuery);
+
+                // Show if it matches everything, otherwise hide it
+                if (nameMatch && typeMatch && evoMatch) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
