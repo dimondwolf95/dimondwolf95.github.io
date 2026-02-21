@@ -2,32 +2,48 @@
 <html>
 <head>
     <title>My Custom Pokédex</title>
+    <style>
+        /* This container holds all the cards */
+        .pokedex-container {
+            display: flex;         /* Enables Flexbox */
+            flex-wrap: wrap;       /* Allows cards to move to the next line if screen is small */
+            gap: 20px;            /* Adds space between the cards */
+            justify-content: center; /* Centers the cards on the page */
+        }
+
+        /* Styling for each individual card */
+        .pokemon-card {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;         /* Sets a consistent width for each card */
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 
 <body>
 
 <h1>My Custom Pokédex</h1>
 
-<div>
+<div class="pokedex-container">
 
-        <div class="pokemon-card">
-            <h2>#1 Plowvr</h2>
+    <div class="pokemon-card">
+        <h2>#1 Plowvr</h2>
+        <img src="static/images/PLOWVR.png" width="150">
+        <p><strong>Type:</strong> Grass</p>
+        <p>A playful forest Pokémon.</p>
+    </div>
 
-            <img src="static/images/PLOWVR.png" width="150">
-
-            <p><strong>Type:</strong> Grass</p>
-            <p>A playful forest Pokémon.</p>
-
-            <h2>#2 Vansizzle</h2>
-
-            <img src="static/images/VANSIZZLE.png" width="150">
-
-            <p><strong>Type:</strong> Fire</p>
-            <p>A playful fire Pokémon.</p>
-        </div>
+    <div class="pokemon-card">
+        <h2>#2 Vansizzle</h2>
+        <img src="static/images/VANSIZZLE.png" width="150">
+        <p><strong>Type:</strong> Fire</p>
+        <p>A playful fire Pokémon.</p>
+    </div>
         
 </div>
 
 </body>
-
 </html>
