@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - #002 Vansizzle</title>
+    <style>
+        /* Shared Styles */
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .entry-container { background-color: white; width: 100%; max-width: 800px; border-radius: 20px; display: flex; flex-direction: row; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        /* THEME COLOR: Fire Red */
+        .entry-visuals { background-color: #F08030; color: white; padding: 40px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .type-tag { background: #F08030; color: white; padding: 5px 15px; border-radius: 5px; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
+
+        .entry-visuals img { width: 100%; max-width: 250px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+        .entry-data { padding: 40px; flex: 1.5; }
+        .back-button { text-decoration: none; color: #666; font-weight: bold; display: inline-block; margin-bottom: 20px; transition: color 0.2s; }
+        .back-button:hover { color: #000; }
+        .stats-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        .stats-table td { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .stat-name { font-weight: bold; color: #888; width: 100px; }
+
+        @media (max-width: 600px) {
+            .entry-container { flex-direction: column; }
+            .entry-visuals, .entry-data { padding: 30px; flex: none; }
+            .entry-visuals img { max-width: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="entry-container">
+        <div class="entry-visuals">
+            <h1>#002</h1>
+            <img src="static/images/VANSIZZLE.png" alt="Vansizzle">
+            <h2>Vansizzle</h2>
+        </div>
+
+        <div class="entry-data">
+            <a href="index.html" class="back-button">← Back to Pokedex</a>
+            <div>
+                <span class="type-tag">Fire</span>
+            </div>
+            
+            <h3>Description</h3>
+            <p>Vansizzle creates small embers while it runs. It is often found near volcanic vents or warm campfires, radiating a cozy heat.</p>
+
+            <h3>Pokémon Data</h3>
+            <table class="stats-table">
+                <tr>
+                    <td class="stat-name">Height</td>
+                    <td>0.5 m</td>
+                </tr>
+                <tr>
+                    <td class="stat-name">Weight</td>
+                    <td>8.2 kg</td>
+                </tr>
+                <tr>
+                    <td class="stat-name">Ability</td>
+                    <td>Blaze</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
