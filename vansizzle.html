@@ -3,145 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex - #002 Vansizzle</title>
-    <link rel="icon" type="image/png" href="static/images/pokeballl.png?v=2">
+    <title>Pokédex Entry</title>
+    <link rel="icon" type="image/png" href="static/images/favicon.png?v=3">
+    
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        
-        .entry-container { 
-            background-color: white; width: 100%; max-width: 900px; border-radius: 20px; 
-            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+        /* ==========================================
+           POKEMON DATA LIBRARY (The "Config" Object)
+           ========================================== */
+        :root {
+            /* Identity & Style */
+            --dex-num: "#001";
+            --name: "Vansizzle";
+            --type: "Fire";
+            --accent-color: #F08030;
+            --pkmn-img: url('static/images/VANSIZZLE.png');
+
+            /* Text Data */
+            --desc: "Vansizzle creates small embers while it runs. It is often found near volcanic vents or warm campfires, radiating a cozy heat.";
+            --ability: "Overgrow";
+            --h-ability: "Leaf Guard";
+
+            /* Stats (Values) */
+            --hp-val: "45";  --hp-bar: 17%;
+            --atk-val: "49"; --atk-bar: 19%;
+            --def-val: "49"; --def-bar: 19%;
+            --spa-val: "65"; --spa-bar: 25%;
+            --spd-val: "65"; --spd-bar: 25%;
+            --spe-val: "45"; --spe-bar: 17%;
+
+            /* Navigation Links */
+            --prev-url: "plowvr.html"; 
+            --next-url: "index.html";
+            --prev-label: "#001 Plowvr";
+            --next-label: "#000 Index";
         }
 
-        /* Top Section: Visuals & Basic Info */
-        .top-section { display: flex; flex-direction: row; background: #fff; }
-        .entry-visuals { background-color: #F08030; color: white; padding: 40px; text-align: center; flex: 1; }
-        .entry-visuals img { width: 100%; max-width: 200px; }
-        .entry-data { padding: 40px; flex: 1.5; }
+        /* ==========================================
+           CORE STYLING
+           ========================================== */
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e0e0e0; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
+        .page-wrapper { display: flex; align-items: flex-start; justify-content: center; gap: 20px; width: 100%; max-width: 1100px; }
 
-        /* Evolution Section */
+        /* Sticky Nav */
+        .back-button-container { position: sticky; top: 40px; flex-shrink: 0; }
+        .back-button { 
+            text-decoration: none; color: white; background-color: #333; 
+            width: 80px; height: 80px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; border-radius: 15px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; 
+        }
+        .back-button:hover { background-color: var(--accent-color); transform: translateX(-5px); }
+
+        /* Layout Structure */
+        .entry-container { background-color: white; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .top-section { display: flex; min-height: 400px; }
+        
+        /* Centered Left Panel */
+        .entry-visuals { 
+            background-color: var(--accent-color); color: white; padding: 40px; 
+            flex: 1; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+        }
+        .main-img { width: 100%; max-width: 250px; content: var(--pkmn-img); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+        
+        .entry-data { padding: 40px; flex: 1.5; display: flex; flex-direction: column; justify-content: center; }
+        .type-tag { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; width: fit-content;}
+
+        /* Sections */
         .section-title { background: #f8f8f8; padding: 15px 40px; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; color: #444; }
-        
-        .evo-container { 
-            display: flex; justify-content: space-around; align-items: center; padding: 30px; text-align: center; 
-        }
-        .evo-arrow { font-size: 2rem; color: #ccc; }
+        .stats-container, .moves-container { padding: 25px 40px; }
+
+        /* Stat Bars */
+        .stat-row { display: flex; align-items: center; margin-bottom: 10px; }
+        .stat-label { width: 100px; font-weight: bold; font-size: 0.8rem; color: #666; }
+        .stat-num { width: 40px; text-align: right; margin-right: 15px; font-weight: bold; }
+        .stat-bar-bg { flex-grow: 1; background: #eee; height: 10px; border-radius: 5px; overflow: hidden; }
+        .stat-bar-fill { height: 100%; border-radius: 5px; }
+
+        .hp-bar { width: var(--hp-bar); background: #FF0000; }
+        .atk-bar { width: var(--atk-bar); background: #F08030; }
+        .def-bar { width: var(--def-bar); background: #F8D030; }
+        .spa-bar { width: var(--spa-bar); background: #6890F0; }
+        .spd-bar { width: var(--spd-bar); background: #78C850; }
+        .spe-bar { width: var(--spe-bar); background: #F85888; }
+
+        /* Evolution Line */
+        .evo-container { display: flex; justify-content: space-around; align-items: center; padding: 30px; text-align: center; }
         .evo-step img { width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; padding: 10px; }
+        .evo-arrow { font-size: 2rem; color: #ccc; }
 
         /* Moves Table */
-        .moves-section { padding: 20px 40px 40px; }
-        .moves-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .moves-table th { border-bottom: 2px solid #F08030; padding: 10px; color: #666; font-size: 0.9rem; }
-        .moves-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        .moves-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .moves-table th { border-bottom: 2px solid #ddd; padding: 12px; text-align: left; color: #888; font-size: 0.85rem; }
+        .moves-table td { padding: 12px; border-bottom: 1px solid #eee; }
 
-        .type-tag { background: #F08030; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
-        .back-button { text-decoration: none; color: #666; font-weight: bold; display: block; margin-bottom: 15px; }
+        /* Footer Nav */
+        .dex-nav { display: flex; justify-content: space-between; background: #333; padding: 20px 40px; }
+        .nav-btn { color: white; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .nav-btn:hover { color: var(--accent-color); }
 
-        @media (max-width: 600px) {
+        /* Mobile */
+        @media (max-width: 900px) {
+            .page-wrapper { flex-direction: column; align-items: center; }
             .top-section { flex-direction: column; }
-            .evo-container { flex-direction: column; gap: 20px; }
-            .evo-arrow { transform: rotate(90deg); }
+            .back-button-container { position: relative; top: 0; width: 100%; margin-bottom: 10px; }
+            .back-button { width: 100%; height: 50px; flex-direction: row; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="entry-container">
-    <div class="top-section">
-        <div class="entry-visuals">
-            <h1>#002</h1>
-            <img src="static/images/VANSIZZLE.png" alt="Vansizzle">
-            <h2>Vansizzle</h2>
-            <span class="type-tag">Fire</span>
+    <div class="page-wrapper">
+        <div class="back-button-container">
+            <a href="index.html" class="back-button"><span>←</span><small>BACK</small></a>
         </div>
-        <div class="entry-data">
-            <a href="index.html" class="back-button">← Back</a>
-            <h3>Description</h3>
-            <p>Vansizzle creates small embers while it runs. It is often found near volcanic vents or warm campfires, radiating a cozy heat
-            
-            <strong>Ability:</strong> Overgrow<br>
-            <strong>Hidden Ability:</strong> Leaf Guard
+
+        <div class="entry-container">
+            <div class="top-section">
+                <div class="entry-visuals">
+                    <h1 id="out-num"></h1>
+                    <img class="main-img" alt="Pokemon">
+                    <h2 id="out-name"></h2>
+                </div>
+
+                <div class="entry-data">
+                    <span class="type-tag" id="out-type"></span>
+                    <h3>Description</h3>
+                    <p id="out-desc"></p>
+                    <p><strong>Ability:</strong> <span id="out-ability"></span></p>
+                    <p><strong>Hidden Ability:</strong> <span id="out-h-ability"></span></p>
+                </div>
+            </div>
+
+            <div class="section-title">Base Stats</div>
+            <div class="stats-container">
+                <div class="stat-row"><div class="stat-label">HP</div><div class="stat-num" id="out-hp"></div><div class="stat-bar-bg"><div class="stat-bar-fill hp-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">ATTACK</div><div class="stat-num" id="out-atk"></div><div class="stat-bar-bg"><div class="stat-bar-fill atk-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">DEFENSE</div><div class="stat-num" id="out-def"></div><div class="stat-bar-bg"><div class="stat-bar-fill def-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SP. ATK</div><div class="stat-num" id="out-spa"></div><div class="stat-bar-bg"><div class="stat-bar-fill spa-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SP. DEF</div><div class="stat-num" id="out-spd"></div><div class="stat-bar-bg"><div class="stat-bar-fill spd-bar"></div></div></div>
+                <div class="stat-row"><div class="stat-label">SPEED</div><div class="stat-num" id="out-spe"></div><div class="stat-bar-bg"><div class="stat-bar-fill spe-bar"></div></div></div>
+            </div>
+
+            <div class="section-title">Evolution Line</div>
+            <div class="evo-container">
+                <div class="evo-step"><img src="static/images/PLOWVR.png" alt="Evo 1"><p><strong>Plowvr</strong><br><small>Basic</small></p></div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step"><div style="width:80px;height:80px;background:#eee;border-radius:50%;display:inline-block;line-height:80px;color:#aaa;">?</div><p><strong>???</strong><br><small>Lvl 16</small></p></div>
+                <div class="evo-arrow">➔</div>
+                <div class="evo-step"><div style="width:80px;height:80px;background:#eee;border-radius:50%;display:inline-block;line-height:80px;color:#aaa;">?</div><p><strong>???</strong><br><small>Lvl 34</small></p></div>
+            </div>
+
+            <div class="section-title" id="move-head-lvl" style="background:var(--accent-color); color:white;">Moves Learnt by Level Up</div>
+            <div class="moves-container">
+                <table class="moves-table">
+                    <thead><tr><th>Lvl</th><th>Move</th><th>Type</th><th>Pwr</th></tr></thead>
+                    <tbody>
+                        <tr><td>Start</td><td>Tackle</td><td>Normal</td><td>40</td></tr>
+                        <tr><td>Lvl 7</td><td>Vine Whip</td><td>Grass</td><td>45</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-title" style="background:#333; color:white;">Moves Learnt by TM / HM</div>
+            <div class="moves-container">
+                <table class="moves-table">
+                    <thead><tr><th>TM #</th><th>Move</th><th>Type</th><th>Pwr</th></tr></thead>
+                    <tbody>
+                        <tr><td>TM01</td><td>Work Up</td><td>Normal</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="dex-nav">
+                <a href="#" id="btn-prev" class="nav-btn"></a>
+                <a href="#" id="btn-next" class="nav-btn"></a>
+            </div>
         </div>
     </div>
 
-    <div class="section-title">Evolution Line</div>
-    <div class="evo-container">
-        <div class="evo-step">
-            <img src="static/images/VANSIZZLE.png" alt="Vansizzle">
-            <p><strong>Vansizzle</strong><br><small>Basic</small></p>
-        </div>
-        <div class="evo-arrow">➔</div>
-        <div class="evo-step">
-            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
-            <p><strong>???</strong><br><small>Lvl 16</small></p>
-        </div>
-        <div class="evo-arrow">➔</div>
-        <div class="evo-step">
-            <div style="width:80px; height:80px; background:#eee; border-radius:50%; display:inline-block; line-height:80px; color:#aaa;">?</div>
-            <p><strong>???</strong><br><small>Lvl 34</small></p>
-        </div>
-    </div>
+    <script>
+        // Library Controller
+        document.addEventListener("DOMContentLoaded", () => {
+            const root = getComputedStyle(document.documentElement);
+            const getVar = (name) => root.getPropertyValue(name).trim().replace(/^"(.*)"$/, '$1');
 
-<div class="section-title" style="background: #F08030; color: white; padding: 10px 40px; margin-top: 30px; font-weight: bold;">
-    Moves Learnt by Level Up
-</div>
-<div class="moves-section" style="padding: 0 40px;">
-    <table class="moves-table" style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-        <thead>
-            <tr style="text-align: left; border-bottom: 2px solid #78C850;">
-                <th style="padding: 12px;">Lvl</th>
-                <th style="padding: 12px;">Move</th>
-                <th style="padding: 12px;">Type</th>
-                <th style="padding: 12px;">Pwr</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Start</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Tackle</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">40</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Lvl 7</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Vine Whip</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#78C850;">Grass</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">45</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+            // Identity
+            document.getElementById('out-num').innerText = getVar('--dex-num');
+            document.getElementById('out-name').innerText = getVar('--name');
+            document.getElementById('out-type').innerText = getVar('--type');
+            document.getElementById('out-desc').innerText = getVar('--desc');
+            document.getElementById('out-ability').innerText = getVar('--ability');
+            document.getElementById('out-h-ability').innerText = getVar('--h-ability');
 
-<div class="section-title" style="background: #333; color: white; padding: 10px 40px; font-weight: bold;">
-    Moves Learnt by TM / HM
-</div>
-<div class="moves-section" style="padding: 0 40px;">
-    <table class="moves-table" style="width: 100%; border-collapse: collapse; margin-bottom: 40px;">
-        <thead>
-            <tr style="text-align: left; border-bottom: 2px solid #333;">
-                <th style="padding: 12px;">TM #</th>
-                <th style="padding: 12px;">Move</th>
-                <th style="padding: 12px;">Type</th>
-                <th style="padding: 12px;">Pwr</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">TM01</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Work Up</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">--</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">TM10</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">Hidden Power</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;"><span class="type-tag" style="background:#A8A878;">Normal</span></td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">60</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
+            // Stats
+            document.getElementById('out-hp').innerText = getVar('--hp-val');
+            document.getElementById('out-atk').innerText = getVar('--atk-val');
+            document.getElementById('out-def').innerText = getVar('--def-val');
+            document.getElementById('out-spa').innerText = getVar('--spa-val');
+            document.getElementById('out-spd').innerText = getVar('--spd-val');
+            document.getElementById('out-spe').innerText = getVar('--spe-val');
 
+            // Cycler
+            const pBtn = document.getElementById('btn-prev');
+            const nBtn = document.getElementById('btn-next');
+            pBtn.href = getVar('--prev-url');
+            pBtn.innerText = getVar('--prev-label');
+            nBtn.href = getVar('--next-url');
+            nBtn.innerText = getVar('--next-label');
+        });
+    </script>
 </body>
 </html>
