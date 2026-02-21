@@ -4,45 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex - #001 Plowvr</title>
-    <link rel="icon" type="image/png" href="static/images/favicon.png?v=2">
+    <link rel="icon" type="image/png" href="static/images/favicon.png?v=3">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #e0e0e0;
             display: flex;
             justify-content: center;
-            align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        /* Layout Wrapper */
+        /* The Wrapper */
         .page-wrapper {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            gap: 25px;
+            gap: 20px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
-        /* The Red Area Back Button */
+        /* STICKY BACK BUTTON */
+        .back-button-container {
+            position: sticky;
+            top: 40px; /* Distance from top of screen when scrolling */
+            flex-shrink: 0;
+        }
+
         .back-button {
             text-decoration: none;
             color: white;
             background-color: #333;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             border-radius: 15px;
-            font-size: 2rem;
-            font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            flex-shrink: 0;
+        }
+
+        .back-button span {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .back-button small {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 4px;
         }
 
         .back-button:hover {
@@ -51,18 +65,16 @@
             transform: translateX(-5px);
         }
 
-        /* Main Card Container */
+        /* Main Card */
         .entry-container {
             background-color: white;
             width: 100%;
             border-radius: 20px;
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .top-section { display: flex; flex-direction: row; }
+        .top-section { display: flex; }
 
         .entry-visuals {
             background-color: #78C850;
@@ -78,7 +90,7 @@
 
         .entry-visuals img {
             width: 100%;
-            max-width: 200px;
+            max-width: 220px;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
 
@@ -92,9 +104,10 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
-        /* Section Styling */
         .section-title {
             background: #f8f8f8;
             padding: 15px 40px;
@@ -104,14 +117,15 @@
             color: #444;
         }
 
-        /* Base Stats Styling */
-        .stats-container { padding: 20px 40px; }
+        /* FULL STATS SECTION */
+        .stats-container { padding: 25px 40px; background: #fff; }
         .stat-row { display: flex; align-items: center; margin-bottom: 10px; }
-        .stat-label { width: 80px; font-weight: bold; font-size: 0.85rem; color: #666; }
-        .stat-num { width: 35px; text-align: right; margin-right: 15px; font-weight: bold; }
-        .stat-bar-bg { flex-grow: 1; background: #eee; height: 10px; border-radius: 5px; }
+        .stat-label { width: 100px; font-weight: bold; font-size: 0.8rem; color: #666; text-transform: uppercase; }
+        .stat-num { width: 40px; text-align: right; margin-right: 15px; font-weight: bold; font-family: monospace; }
+        .stat-bar-bg { flex-grow: 1; background: #eee; height: 10px; border-radius: 5px; overflow: hidden; }
         .stat-bar-fill { height: 100%; border-radius: 5px; }
 
+        /* Official Stat Colors */
         .hp { background: #FF0000; }
         .atk { background: #F08030; }
         .def { background: #F8D030; }
@@ -131,23 +145,27 @@
         .evo-step img { width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; padding: 10px; }
 
         /* Moves Table Styling */
-        .moves-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        .moves-table th { border-bottom: 2px solid #ddd; padding: 12px; text-align: left; color: #888; font-size: 0.9rem; }
-        .moves-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .moves-table { width: 100%; border-collapse: collapse; }
+        .moves-table th { border-bottom: 2px solid #ddd; padding: 12px; text-align: left; color: #888; font-size: 0.85rem; }
+        .moves-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
 
         @media (max-width: 900px) {
             .page-wrapper { flex-direction: column; align-items: center; }
-            .back-button { width: 100%; height: 50px; }
+            .back-button-container { position: relative; top: 0; width: 100%; }
+            .back-button { width: 100%; height: 50px; flex-direction: row; gap: 10px; }
             .top-section { flex-direction: column; }
-            .evo-container { flex-direction: column; gap: 20px; }
-            .evo-arrow { transform: rotate(90deg); }
         }
     </style>
 </head>
 <body>
 
     <div class="page-wrapper">
-        <a href="index.html" class="back-button">←</a>
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">
+                <span>←</span>
+                <small>BACK</small>
+            </a>
+        </div>
 
         <div class="entry-container">
             <div class="top-section">
@@ -155,7 +173,6 @@
                     <h1>#001</h1>
                     <img src="static/images/PLOWVR.png" alt="Plowvr">
                     <h2>Plowvr</h2>
-                    <span class="type-tag" style="background: white; color: #78C850;">Grass</span>
                 </div>
 
                 <div class="entry-data">
@@ -189,6 +206,16 @@
                     <div class="stat-num">65</div>
                     <div class="stat-bar-bg"><div class="stat-bar-fill spa" style="width: 25%;"></div></div>
                 </div>
+                <div class="stat-row">
+                    <div class="stat-label">Sp. Def</div>
+                    <div class="stat-num">65</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill spd" style="width: 25%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">Speed</div>
+                    <div class="stat-num">45</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill spe" style="width: 17%;"></div></div>
+                </div>
             </div>
 
             <div class="section-title">Evolution Line</div>
@@ -221,18 +248,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Start</td>
-                            <td>Tackle</td>
-                            <td>Normal</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>Lvl 7</td>
-                            <td>Vine Whip</td>
-                            <td>Grass</td>
-                            <td>45</td>
-                        </tr>
+                        <tr><td>Start</td><td>Tackle</td><td>Normal</td><td>40</td></tr>
+                        <tr><td>Lvl 7</td><td>Vine Whip</td><td>Grass</td><td>45</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -249,15 +266,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>TM01</td>
-                            <td>Work Up</td>
-                            <td>Normal</td>
-                            <td>--</td>
-                        </tr>
+                        <tr><td>TM01</td><td>Work Up</td><td>Normal</td><td>--</td></tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
 
-        </div> </div> </body>
+</body>
 </html>
