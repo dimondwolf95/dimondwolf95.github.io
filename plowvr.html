@@ -35,28 +35,48 @@
         .moves-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
 
         .type-tag { background: #78C850; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
-        .back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: white;
-    color: #333;
+        .page-wrapper {
+    display: flex;
+    align-items: flex-start; /* Keeps button at the top */
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.back-button {
+    text-decoration: none;
+    color: white;
+    background-color: #333;
     width: 50px;
     height: 50px;
-    line-height: 50px; /* Centers the arrow */
-    text-align: center;
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
     font-size: 1.5rem;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000; /* Keeps it above everything else */
-    text-decoration: none;
-    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* Prevents the button from shrinking */
 }
 
 .back-button:hover {
-    background: #ffcb05;
-    transform: rotate(-10deg);
+    background-color: #ffcb05;
+    color: #333;
+    transform: translateX(-5px); /* Subtle nudge to the left */
+}
+
+/* Mobile Fix: Stack them so the button is on top of the card */
+@media (max-width: 900px) {
+    .page-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .back-button {
+        width: 100%; /* Full width button on mobile for easy tapping */
+        height: 45px;
+    }
 }
 
         @media (max-width: 600px) {
