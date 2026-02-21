@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - #001 Plowvr</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* The Main Entry Card */
+        .entry-container {
+            background-color: white;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 20px;
+            display: flex; /* Side-by-side layout */
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Left side: Image and Name */
+        .entry-visuals {
+            background-color: #78C850; /* Matches Grass Type */
+            color: white;
+            padding: 40px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .entry-visuals img {
+            width: 100%;
+            max-width: 250px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
+        /* Right side: Stats and Info */
+        .entry-data {
+            padding: 40px;
+            flex: 1.5;
+        }
+
+        .back-button {
+            text-decoration: none;
+            color: #666;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .type-tag {
+            background: #78C850;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .stats-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .stats-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-name {
+            font-weight: bold;
+            color: #888;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="entry-container">
+        <div class="entry-visuals">
+            <h1>#001</h1>
+            <img src="static/images/PLOWVR.png" alt="Plowvr">
+            <h2>Plowvr</h2>
+        </div>
+
+        <div class="entry-data">
+            <a href="index.html" class="back-button">← Back to Pokedex</a>
+            <span class="type-tag">Grass</span>
+            
+            <h3>Description</h3>
+            <p>Plowvr uses its leaf-like tail to till the soil in deep forests, helping new plants grow. It is known for its high energy and playful nature.</p>
+
+            <h3>Pokémon Data</h3>
+            <table class="stats-table">
+                <tr>
+                    <td class="stat-name">Height</td>
+                    <td>0.6 m</td>
+                </tr>
+                <tr>
+                    <td class="stat-name">Weight</td>
+                    <td>12.5 kg</td>
+                </tr>
+                <tr>
+                    <td class="stat-name">Ability</td>
+                    <td>Overgrow</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
