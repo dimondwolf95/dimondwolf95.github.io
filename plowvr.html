@@ -35,7 +35,24 @@
         .moves-table td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
 
         .type-tag { background: #78C850; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
-        .back-button { text-decoration: none; color: #666; font-weight: bold; display: block; margin-bottom: 15px; }
+        .back-button {
+            text-decoration: none;
+            color: white;
+            background-color: #333; /* Dark grey to stand out from the Grass/Fire colors */
+            padding: 10px 20px;
+            border-radius: 50px; /* Rounded pill shape */
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .back-button:hover {
+            background-color: #000;
+            transform: scale(1.05); /* Slightly grows when you hover */
+            color: #ffcb05; /* Pokémon Yellow text on hover */
+        }
 
         @media (max-width: 600px) {
             .top-section { flex-direction: column; }
